@@ -47,7 +47,7 @@ final class ACF_TODO_LIST_PLUGIN {
     public function add_hooks() {
         add_action( 'admin_menu', array($this, 'acf_todolist_menu') );
         add_action( 'admin_init', array($this, 'admin_init'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts_front_end'));
+        add_action( 'admin_enqueue_scripts', array($this, 'enqueue_scripts_front_end'));
     }
     
     public function acf_todolist_menu() {
@@ -67,7 +67,7 @@ final class ACF_TODO_LIST_PLUGIN {
     }
 
     public function enqueue_scripts_front_end() {
-        wp_enqueue_style( 'acf-todolist-setting', ACF_TODOLIST_PLUGIN_URL . "/assets/style.css", array(), $this->version);
+        wp_enqueue_style( 'acf-todolist', ACF_TODOLIST_PLUGIN_URL . "/assets/style.css", array(), $this->version);
     }
 }
 
