@@ -11,8 +11,6 @@
 * Domain Path:
 */
 
-
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -27,9 +25,6 @@ final class ACF_TODO_LIST_PLUGIN {
 
     public function __construct() {
         $this->add_hooks();
-    }
-    
-    public function install() {
     }
 
     public static function instance() {
@@ -48,6 +43,7 @@ final class ACF_TODO_LIST_PLUGIN {
         add_action( 'admin_menu', array($this, 'acf_todolist_menu') );
         add_action( 'admin_init', array($this, 'admin_init'));
         add_action( 'admin_enqueue_scripts', array($this, 'enqueue_scripts_front_end'));
+        wp_localize_script( 'ajax-script', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
     }
     
     public function acf_todolist_menu() {
@@ -59,11 +55,14 @@ final class ACF_TODO_LIST_PLUGIN {
     }
     
     public function admin_init() {
-        register_setting( 'acf_todolist_setings', 'todoList', array( $this, 'refresh_acf_todo_list' ) );
+        register_setting( 'acf-todolist-setings', 'todoList', array( $this, 'refresh_acf_todo_list' ) );
     }
 
     public function refresh_acf_todo_list($settings) {
         $data = self::get_options();
+
+        $p_cnt = isset($settings['count']) ? $settings['count'] : '';
+        exit;
     }
 
     public function enqueue_scripts_front_end() {
@@ -72,5 +71,3 @@ final class ACF_TODO_LIST_PLUGIN {
 }
 
 $plugin = ACF_TODO_LIST_PLUGIN::instance();
-
-register_activation_hook( __FILE__, array( $plugin, 'install' ) );
